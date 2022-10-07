@@ -1,6 +1,6 @@
 # Structured Query Language (SQL)
 
-- Es un lenguaje diseñado para acceder y manipular bases de datos relacionales (RDBMS-Relational Data Base Management System).
+- Es un lenguaje diseñado para acceder y manipular bases de datos **relacionales** (RDBMS-Relational Data Base Management System).
 - A pesar de ser un lenguaje estándar ANSI/ISO, existen diferentes versiones de SQL, cada una con pequeñas variaciones según el motor de base de datos que se esté utilizando.
 
 ## Gestores de base de datos relacionales (RDBMS)
@@ -80,6 +80,68 @@ sqlite> delete from Cliente where run=11111111;
 sqlite> select * from Cliente;
 ```
 
+### Sentencias auxiliares
+
+#### **Order by**
+Permite ordenar elementos bajo un criterio. Se puede indicar si el orden es ascendente o descendente a través de las palabras reservadas *asc* o *desc* respectivamente.
+
+Ejemplo:
+
+```console
+sqlite> select * from Cliente order by nombre asc;
+```
+
+#### **Limit**
+Limita la cantidad de registros obtenidos
+
+Ejemplo:
+
+```console
+sqlite> select * from Cliente limit 2;
+```
+
+#### **Métodos de agregación**
+Existen múltiples métodos que entregan información agregada sobre los datos resultantes de una consulta. Entre ellas tenemos:
+
+- **AVG:** Promedio
+- **SUM:** Suma
+- **MIN:** Valor mínimo
+- **MAX:** Valor máximo
+- **COUNT:** Conteo de elementos
+
+Ejemplo:
+
+```console
+sqlite> select count(*) from Cliente;
+```
+
+#### **Alias**
+Permite cambiar los nombres con los que ciertas columnas y tablas pueden ser accedidas. Particularmente cuando los nombres de columnas o tablas son extensos, complicados o se repiten en diferentes tablas dentro de una misma query.
+
+Ejemplo:
+
+```console
+sqlite> select nombre as n from Cliente where n="Patricio";
+```
+
+#### **Group by**
+Permite agrupar los datos resultantes de una query bajo un cierto criterio.
+
+Ejemplo:
+
+```console
+sqlite> select nombre, COUNT(*) from Cliente group by nombre;
+```
+
+#### **Having**
+Permite filtrar los datos obtenidos desde funciones agregadas (similar al where).
+
+Ejemplo:
+
+```console
+sqlite> select nombre, COUNT(*) from Cliente group by nombre having run>33333333;
+```
+
 #### **Join**
 
 Join permite combinar datos entre tablas que tengan una o más columnas en común. El Join puede ser de tipo
@@ -97,10 +159,6 @@ sqlite> select nombre, run, n_cuenta, saldo from Cliente join Cuenta on Cliente.
 sqlite> select nombre, run, n_cuenta, saldo from Cliente left join Cuenta on Cliente.id=person_id;
 
 ```
-
-
-
-
 
 # Referencias
 - https://www.w3schools.com/sql/
